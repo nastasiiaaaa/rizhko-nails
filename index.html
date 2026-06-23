@@ -135,7 +135,7 @@
     </div>
 
         <script>
-    // Завантаження даних
+            // Завантаження даних
     fetch('content.json')
         .then(response => response.json())
         .then(data => {
@@ -143,17 +143,55 @@
             const dateSelect = document.getElementById('date-select');
             const timeSelect = document.getElementById('time-select');
 
-            function updateSchedule() {
+            // Функція оновлення дат при виборі міста
+            function updateDates() {
                 const selectedCity = document.querySelector('input[name="city"]:checked').value;
                 const cityKey = (selectedCity === "Новояворівськ") ? 'novoyavorivsk' : 'ivano_frankove';
-                const schedule = data[cityKey];
+                const schedule = data[cityKey] || []; 
 
-                dateSelect.innerHTML = schedule.dates.map(d => `<option value="${d}">${d}</option>`).join('');
-                timeSelect.innerHTML = schedule.hours.map(h => `<option value="${h}">${h}</option>`).join('');
+                if (schedule.length === 0) {
+                    dateSelect.innerHTML = '<option value="">Немає вільних дат</option>';
+                    timeSelect.innerHTML = '<option value="">-</option>';
+                    return;
+                }
+
+                // Заповнюємо список дат
+                dateSelect.innerHTML = '<option value="">Оберіть дату...</option>' + 
+                    schedule.map(day => `<option value="${day.date}">${day.date}</option>`).join('');
+                
+                // Очищаємо години, поки не обрана конкретна дата
+                timeSelect.innerHTML = '<option value="">Спочатку оберіть дату...</option>';
             }
 
-            cityInputs.forEach(input => input.addEventListener('change', updateSchedule));
-            updateSchedule();
+            // Функція оновлення годин при виборі дати
+            function updateTimes() {
+                const selectedCity = document.querySelector('input[name="city"]:checked').value;
+                const cityKey = (selectedCity === "Новояворівськ") ? 'novoyavorivsk' : 'ivano_frankove';
+                const schedule = data[cityKey] || [];
+                const selectedDate = dateSelect.value;
+
+                if (!selectedDate) {
+                    timeSelect.innerHTML = '<option value="">Спочатку оберіть дату...</option>';
+                    return;
+                }
+
+                // Шукаємо години для обраної дати
+                const selectedDay = schedule.find(day => day.date === selectedDate);
+                
+                if (selectedDay && selectedDay.hours && selectedDay.hours.length > 0) {
+                    timeSelect.innerHTML = '<option value="">Оберіть час...</option>' + 
+                        selectedDay.hours.map(h => `<option value="${h}">${h}</option>`).join('');
+                } else {
+                    timeSelect.innerHTML = '<option value="">Немає вільних годин</option>';
+                }
+            }
+
+            // Додаємо слухачів подій
+            cityInputs.forEach(input => input.addEventListener('change', updateDates));
+            dateSelect.addEventListener('change', updateTimes);
+            
+            // Запускаємо при першому завантаженні
+            updateDates();
         });
 
     const form = document.forms["booking"];

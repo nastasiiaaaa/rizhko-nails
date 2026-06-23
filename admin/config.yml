@@ -16,15 +16,15 @@ collections:
         label: "Редагування розкладу"
         name: "schedule"
         fields:
-          - label: "Новояворівськ"
+          - label: "Новояворівськ (Робочі дні)"
             name: "novoyavorivsk"
-            widget: "object"
+            widget: "list"
             fields:
-              - {label: "Дати", name: "dates", widget: "list"}
-              - {label: "Години", name: "hours", widget: "list"}
-          - label: "Івано-Франкове"
+              - {label: "Дата", name: "date", widget: "string"}
+              - {label: "Вільні години", name: "hours", widget: "list"}
+          - label: "Івано-Франкове (Робочі дні)"
             name: "ivano_frankove"
-            widget: "object"
+            widget: "list"
             fields:
-              - {label: "Дати", name: "dates", widget: "list"}
-              - {label: "Години", name: "hours", widget: "list"}
+              - {label: "Дата", name: "date", widget: "string"}
+              - {label: "Вільні години", name: "hours", widget: "list"}
