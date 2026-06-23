@@ -1,0 +1,20 @@
+collections:
+  - name: "schedule"
+    label: "Розклад"
+    files:
+      - file: "content.json"
+        label: "Редагування розкладу"
+        name: "schedule"
+        fields:
+          - label: "Новояворівськ"
+            name: "novoyavorivsk"
+            widget: "object"
+            fields:
+              - {label: "Дати", name: "dates", widget: "list"}
+              - {label: "Години", name: "hours", widget: "list"}
+          - label: "Івано-Франкове"
+            name: "ivano_frankove"
+            widget: "object"
+            fields:
+              - {label: "Дати", name: "dates", widget: "list"}
+              - {label: "Години", name: "hours", widget: "list"}

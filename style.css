@@ -1,0 +1,262 @@
+/*Автоматична зміна теми*/
+:root {
+    --bg-color: #fcf9f8;
+    --text-color: #2b221d;
+    --card-bg: #ffffff;
+    --element-bg: #f5ede8;
+    --border-color: #e8dcd5;
+    --text-muted: #7a6b63;
+    --accent-color: #d1ad96;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #121212;
+        --text-color: #f5f5f5;
+        --card-bg: #1a1a1a;
+        --element-bg: #2a2a2a;
+        --accent-color: #d1ad96;
+        --border-color: #333333;
+        --text-muted: #a0a0a0;
+    }
+}
+
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    transition: background-color 0.4s, color 0.4s;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+header p {
+    color: var(--text-muted);
+    margin-top: 0;
+}
+
+header a {
+    display: inline-block;
+    background-color: transparent;
+    color: var(--accent-color);
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 1px solid var(--accent-color);
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+header a:hover {
+    background-color: var(--accent-color);
+    color: #000000;
+}
+
+
+.widget-container {
+    background-color: var(--card-bg);
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.4s;
+}
+
+.step-block {
+    margin-bottom: 30px;
+}
+
+h3 {
+    color: var(--text-color);
+    font-size: 18px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.city-selector {
+    display: flex;
+    gap: 10px;
+}
+
+.city-card {
+    flex: 1;
+    cursor: pointer;
+}
+
+.city-card input {
+    display: none;
+}
+
+.city-content {
+    background-color: var(--element-bg);
+    color: var(--text-muted);
+    padding: 12px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 14px;
+    border: 2px solid transparent;
+    transition: 0.3s;
+}
+
+.city-card input:checked + .city-content {
+    border-color: var(--accent-color);
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+.category-title {
+    color: var(--accent-color);
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.service-label {
+    display: block;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.service-label input {
+    display: none; 
+}
+
+.service-label:hover .service-card {
+    opacity: 0.8;
+}
+
+.service-label input:checked + .service-card {
+    border-color: var(--accent-color);
+    background-color: transparent; 
+}
+
+.service-card {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--element-bg);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    transition: 0.3s;
+    border: 2px solid transparent;
+}
+
+.service-name {
+    font-weight: 500;
+}
+
+.service-price {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+
+input[type="text"], input[type="tel"], input[type="date"] {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 12px;
+    background-color: var(--element-bg);
+    color: var(--text-color);
+    border: 1px solid transparent;
+    border-radius: 12px;
+    box-sizing: border-box;
+    font-size: 15px;
+    font-family: inherit;
+    transition: 0.3s;
+}
+
+input::placeholder {
+    color: var(--text-muted);
+}
+
+input:focus {
+    outline: none;
+    border: 1px solid var(--accent-color);
+}
+
+.date-label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+button {
+    background-color: var(--accent-color);
+    color: #000000;
+    border: none;
+    padding: 16px;
+    width: 100%;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/*Спливаюче вікно*/
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-box {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 320px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--accent-color);
+}
+
+.modal-box h3 {
+    border-bottom: none;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.modal-box p {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin-bottom: 25px;
+}
+
+.close-btn {
+    background-color: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--text-muted);
+    padding: 12px;
+}
+
+.close-btn:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    background-color: transparent;
+}
